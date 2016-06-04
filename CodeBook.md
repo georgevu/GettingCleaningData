@@ -11,24 +11,24 @@ subject_test is a data frame from the subject_test.txt file which contains the s
 subject_train is a data frame from the subject_train.txt file which contains the subjects for all of the training data  
 activity is a data frame from the activity_labels.txt file which contains the activity names for the activity code  
 features is a dataframe from the features.txt file which contains the variable names for the testing and training datasets  
-## Setting up the data ##  
+## Setting up the data   
 1. Set the column names in the activity data frame to "ActivityCode", "Activity" to cross reference later  
 2. labels is a vector that contains only the feature names and not the feature number  
 3. Only the mean and standard deviation values are needed for the data so a useLabels logical vector is created to know ehich columns has std() and mean() in the labels vector  
 4. Extract only the columns from the x_test and x_train data - x_test, x_train  
 5. Add "Subject" and "ActivityCode" to the labels so they will be part of the final dataset  
-## Combine the data ##  
+## Combine the data   
 1. Use the bind_cols function to combine all of the columns from the x_train, subject_train, and y_train datasets and assign to train_data  
 2. Use the bind_cols function to combine all of the columns from the x_test, subject_test, and y_test datasets and assign to test_data  
 3. Combine all the data into one table using the rbind function - all_data  
 4. Now join the Activity table with all_data table to get tidy_data using the inner_join function  
 5. tidy_data should have all the data needed to run the summary  
-## Create the summary data ##  
+## Create the summary data   
 Use tidy_data to average all of the variables except Subject, ActivityCode, and Activity using  
-'summary_data <- tidy_data %>%  
+`summary_data <- tidy_data %>%  
   group_by(Subject, ActivityCode, Activity) %>%  
   summarise_each(funs(mean), -ActivityCode, -Activity, -Subject) %>%   
-  select(ActivityCode, Activity, Subject, everything())'  
+  select(ActivityCode, Activity, Subject, everything())`  
 The select statement at the end is used to re-arrange the data so that Activity, and Subject are at the beginning - I could take out ActivityCode but left it in there for reference  
 Change the name of the variables in the summary_data to have "Avg" in the front of the variable   
 Write out the summary_data to a file to summary_data.txt  
